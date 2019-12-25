@@ -29,7 +29,12 @@ import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefrom
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 
-export default class ClassicEditor extends ClassicEditorBase {}
+// custom
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight';
+import Font from '@ckeditor/ckeditor5-font/src/font';
+
+export default class ClassicEditor extends ClassicEditorBase { }
 
 // Plugins to include in the build.
 ClassicEditor.builtinPlugins = [
@@ -54,7 +59,11 @@ ClassicEditor.builtinPlugins = [
 	Paragraph,
 	PasteFromOffice,
 	Table,
-	TableToolbar
+	TableToolbar,
+	// custom
+	Alignment,
+	Highlight,
+	Font,
 ];
 
 // Editor configuration.
@@ -63,8 +72,17 @@ ClassicEditor.defaultConfig = {
 		items: [
 			'heading',
 			'|',
+			// font
+			'fontSize',
+			'fontColor',
+			'fontBackgroundColor',
+			// font-end
 			'bold',
 			'italic',
+			// alignment
+			'alignment',
+			'highlight',
+			// aligment-end
 			'link',
 			'bulletedList',
 			'numberedList',
@@ -77,24 +95,36 @@ ClassicEditor.defaultConfig = {
 			'insertTable',
 			'mediaEmbed',
 			'undo',
-			'redo'
-		]
+			'redo',
+		],
 	},
 	image: {
 		toolbar: [
+			'imageTextAlternative',
+			'|',
 			'imageStyle:full',
 			'imageStyle:side',
-			'|',
-			'imageTextAlternative'
-		]
+			'imageStyle:alignLeft',
+			'imageStyle:alignCenter',
+			'imageStyle:alignRight',
+		],
+		styles: [
+			// This option is equal to a situation where no style is applied.
+			'full',
+			'side',
+			// This represents an image aligned to the left.
+			'alignLeft',
+			'alignCenter',
+			// This represents an image aligned to the right.
+			'alignRight',
+		],
 	},
 	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
+		contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ],
+	},
+	fontSize: {
+		options: [ 'default', 10, 12, 14, 16, 18, 24, 30, 36, 48 ],
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'en',
 };
